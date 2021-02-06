@@ -1,4 +1,5 @@
-﻿using Entities.Abstract;                     // burdan bilgi alıyorum demek IEntity burdan geliyor.
+﻿using Core.Entities;                  // burdan bilgi alıyorum demek IEntity burdan geliyor.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
