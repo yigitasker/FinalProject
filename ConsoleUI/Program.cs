@@ -36,8 +36,27 @@ namespace ConsoleUI
         {
             ProductManager productManager = new ProductManager(new EfProductDal());              // InMemoryProductDal ın referansını tutabiliyor. (IProductDal)
 
+            var result = productManager.GetProductDetails();
 
-            foreach (var product in productManager.GetProductDetails())              // InMemoryProductDal içindeki GetAll çalıştı. ve bir liste gönderdi 
+
+            if (result.Success == true)
+            {
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName+ "/"+ product.CategoryName);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
+
+
+
+            foreach (var product in productManager.GetProductDetails().Data)              // InMemoryProductDal içindeki GetAll çalıştı. ve bir liste gönderdi 
             {
                 Console.WriteLine(product.ProductName + "/" + product.CategoryName);
             }
