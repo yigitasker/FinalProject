@@ -35,11 +35,11 @@ namespace Business.Concrete
 
         public IDataResult <List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 3)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            
+
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);                              // IProductDal içindeki GetAll çalıştırılabildi. çünkü constructor yolu ile miras aldı.
 
 
