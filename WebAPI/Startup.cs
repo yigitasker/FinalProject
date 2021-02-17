@@ -30,8 +30,8 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IProductService,ProductManager>();                     // bana arka planda bir referans oluþtur. yani IProductService gördüðün yerde ProductManager new le diyortuz.
-            services.AddSingleton<IProductDal, EfProductDal>();                          // ProductMnager new lwdiði anda orda da bir constructor var ve IProductDal istiyor bu durumda da Ef yi new le dedim
+            //services.AddSingleton<IProductService,ProductManager>();                     // bana arka planda bir referans oluþtur. yani IProductService gördüðün yerde ProductManager new le diyortuz.
+            //services.AddSingleton<IProductDal, EfProductDal>();                          // ProductMnager new lwdiði anda orda da bir constructor var ve IProductDal istiyor bu durumda da Ef yi new le dedim
 
         
         }
