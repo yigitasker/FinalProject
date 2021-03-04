@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -31,8 +33,9 @@ namespace Business.Concrete
             
         }
 
-
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]                              // IProductService teki bütüm Get leri sil demek
         public IResult Add(Product product)
         {
             // Business codes = iş için grekli olan kurallardır örneiğin bir ürün yüklerden bir katagoride max 10 ürün olabilir diyor mesela bizde burda aşılmışmı aşılamaış diye denetliyoruz.
@@ -60,6 +63,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheAspect]    //key,value              // tekrar tekrar databes den veri çağırmamaız sağlar bir kere çağırılan veri cach te tutlur bir daha çağırılırsa veri tabanına gitmeden cache den çağırabiliriz
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 3)
@@ -79,6 +83,9 @@ namespace Business.Concrete
 
         }
 
+
+        [CacheAspect]
+        //[PerformanceAspect(5)]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
@@ -128,7 +135,10 @@ namespace Business.Concrete
         }
 
 
-
-
+        //[TransactionalScopeAspect]
+        public IResult AddTransactionalTest(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
